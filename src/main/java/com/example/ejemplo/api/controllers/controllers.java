@@ -12,6 +12,7 @@ import com.example.ejemplo.api.services.userService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,31 +31,51 @@ public class controllers {
     userService userService;
 
 
+    
+
+    // ***************BUSCAR TODOS ***********
     @GetMapping(apiConstante.USUARIO_CONTROLADOR_API_LISTAR_TODOS)
-    public List<models> listarUsuario(){
+    public ResponseEntity<Object> listarUsuario(){
         return userService.listarUsuario();
     }
 
+
+    // ***************BUSCAR POR ID ***********
     @GetMapping(apiConstante.USUARIO_CONTROLADOR_API_LISTAR_ID)
-public ResponseEntity<models>usuarioId(@PathVariable Long id){
+public ResponseEntity<Object>usuarioId(@PathVariable Long id){
     
     return userService.listaUsuariosId(id);
 }
 
+
+    // ***************ELIMINAR USUARIO ***********
+@DeleteMapping(apiConstante.USUARIO_CONTROLADOR_API_DELETE)
+public ResponseEntity<Object> elimnarUser(@PathVariable Long id){
+     return userService.eliminarUsuario(id);
+}
+
+
+    // ***************BUSUCAR POR APELLIDO ***********
 @GetMapping(apiConstante.USUARIO_CONTROLADOR_API_LISTAR_LIKE)
-public ResponseEntity<List<models>> usuarioLikeApellido(@PathVariable String variable) {
-    return userService.listaUsuariosId(variable);
+public ResponseEntity<Object> usuarioLikeApellido(@PathVariable String variable) {
+    return userService.ListaUsuarioApellido(variable);
 
 }
 
+
+
+    // ***************GUARDAR USUARIO ***********
 @PostMapping(apiConstante.USUARIO_CONTROLADOR_API_CREAR)
-public models crearUsuario(@RequestBody models usuario){
-   return userService.crearUsuario(usuario);
+public ResponseEntity<Object> guardarUsuario (@RequestBody models usuario){
+   return userService.guardarUsuario(usuario);
 }
 
+
+
+    // ***************ACTUALIZAR USUARIO ***********
 @PutMapping(apiConstante.USUARIO_CONTROLADOR_API_ACTUALIZAR)
-public models actualizarUsuario(@RequestBody models usuario){
-   return userService.crearUsuario(usuario);
+public ResponseEntity<Object> actualizarUsuario (@RequestBody models usuario){
+   return userService.guardarUsuario(usuario);
 }
 
 

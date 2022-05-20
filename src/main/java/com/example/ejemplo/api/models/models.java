@@ -2,6 +2,8 @@ package com.example.ejemplo.api.models;
 
 import javax.persistence.*;
 
+
+
 @Entity
 @Table(name = "users")
 public class models {
@@ -12,6 +14,11 @@ public class models {
     private String nombre;
     private String apellido;
 
+    // fetch = FetchType.LAZY, optional = false
+
+    // @JsonProperty(access = Access.WRITE_ONLY)
+    @ManyToOne()
+    private perfilEntidad perfil;
     
     public Long getId() {
         return id;
@@ -30,6 +37,12 @@ public class models {
     }
     public void setApellido(String apellido) {
         this.apellido = apellido;
+    }
+    public perfilEntidad getPerfil() {
+        return perfil;
+    }
+    public void setPerfil(perfilEntidad perfil) {
+        this.perfil = perfil;
     }
 
     
